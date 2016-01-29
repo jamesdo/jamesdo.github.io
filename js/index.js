@@ -43,4 +43,4 @@ function tell (evt) {
   }
 }
 
-$(document).bind('keydown keyup', tell);
+window.onkeydown = window.onkeyup = tell;
