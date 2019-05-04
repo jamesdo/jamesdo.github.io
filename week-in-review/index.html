@@ -24,7 +24,7 @@
     });
 
     function updateTimer() {
-      const audioTime = audio.currentTime >= 60 ? "time is up" : Math.ceil(audio.currentTime);
+      const audioTime = audio.currentTime >= 60 ? "time is up" : Math.floor(audio.currentTime);
       document.getElementById("time").innerHTML = audioTime
     }
 
