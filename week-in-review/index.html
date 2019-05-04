@@ -3,9 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Minute to Win It</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
   </head>
-  <body>
+  <body class="h-100">
     <div class="text-center mt-5">
       <input
         id="startButton"
@@ -14,21 +18,22 @@
         value="start your minute" >
     </div>
 
-    <h1 style="margin-top: 200px; font-size: 200px;" class="text-center" id="time"></h1>
-  <script>
-    const audio = new Audio('mp3/minutetowinit.mp3');
+    <h1 style="margin-top: 100px; font-size: 250px; font-family: 'Courier New'" class="text-center" id="time"></h1>
+    <script>
+      const audio = new Audio('mp3/minutetowinit.mp3');
 
-    document.getElementById("startButton").addEventListener("click", function(){
-      audio.currentTime = 0;
-      audio.play();
-    });
+      document.getElementById("startButton").addEventListener("click", function(){
+        audio.currentTime = 0;
+        audio.play();
+      });
 
-    function updateTimer() {
-      const audioTime = audio.currentTime >= 60 ? "time is up" : Math.floor(audio.currentTime);
-      document.getElementById("time").innerHTML = audioTime
-    }
+      function updateTimer() {
+        const roundedTime = audio.currentTime.toFixed(1);
+        const audioTime = audio.currentTime >= 60 ? "time is up" : roundedTime;
+        document.getElementById("time").innerHTML = audioTime;
+      }
 
-    var t = setInterval(updateTimer, 1000);
-  </script>
+      var t = setInterval(updateTimer, 100);
+    </script>
   </body>
 </html>
