@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -11,29 +11,69 @@
   </head>
   <body class="h-100">
     <div class="text-center mt-5">
-      <input
+      <button
         id="startButton"
         type="button"
         class="btn btn-success center-block"
-        value="start your minute" >
+      >
+        start your minute
+      </button>
     </div>
-
-    <h1 style="margin-top: 100px; font-size: 250px; font-family: 'Courier New'" class="text-center" id="time"></h1>
+    <h1
+      style="margin-top: 100px; font-size: 250px; font-family: 'Courier New'"
+      class="text-center"
+      id="time"
+    >
+      0.0
+    </h1>
     <script>
       const audio = new Audio('mp3/minutetowinit.mp3');
-
-      document.getElementById("startButton").addEventListener("click", function(){
-        audio.currentTime = 0;
-        audio.play();
-      });
+      const wowAudio = new Audio('mp3/crowd-wow-surprise-people.wav');
+      let timer;
 
       function updateTimer() {
         const roundedTime = audio.currentTime.toFixed(1);
-        const audioTime = audio.currentTime >= 60 ? "time is up" : roundedTime;
-        document.getElementById("time").innerHTML = audioTime;
+        if (audio.currentTime >= 60) {
+          document.getElementById("startButton").innerText = 'start your minute';
+          document.getElementById("startButton").classList.add('btn-success');
+          document.getElementById("startButton").classList.remove('btn-secondary');
+          document.getElementById("time").innerText = 'time is up';
+          clearInterval(timer);
+          timer = null;
+        } else {
+          document.getElementById("time").innerText = roundedTime;
+        }
       }
 
-      var t = setInterval(updateTimer, 100);
+      function start() {
+        document.getElementById("startButton").innerText = 'finish early';
+        document.getElementById("startButton").classList.remove('btn-success');
+        document.getElementById("startButton").classList.add('btn-secondary');
+        audio.currentTime = 0;
+        audio.play();
+        timer = setInterval(updateTimer, 100);
+      }
+
+      function stop() {
+        document.getElementById("startButton").innerText = 'start your minute';
+        document.getElementById("startButton").classList.add('btn-success');
+          document.getElementById("startButton").classList.remove('btn-secondary');
+        wowAudio.currentTime = 0;
+        wowAudio.play();
+        audio.pause();
+        clearInterval(timer);
+        timer = null;
+      }
+
+      function toggle() {
+        if (timer == null) {
+          start();
+        } else {
+          stop();
+        }
+      }
+
+      document.getElementById("startButton").addEventListener("click", toggle);
     </script>
   </body>
 </html>
